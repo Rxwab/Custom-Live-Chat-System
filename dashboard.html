@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الوكلاء - نظام الدعم المخصص</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* الأنماط الرئيسية */
+        body {
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+            text-align: right;
+            background-color: #eef2f6; /* خلفية خفيفة جداً */
+        }
+        .primary-color { color: #007bff; }
+        .bg-primary { background-color: #007bff; }
+        .btn-hover:hover { background-color: #0056b3; }
+
+        /* تخصيص شريط التمرير للمحادثات */
+        .chat-messages-area::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chat-messages-area::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white p-8 rounded-xl shadow-2xl border-t-4 border-primary">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-extrabold primary-color">لوحة الدعم</h1>
+                <p class="text-gray-500 mt-2">يرجى تسجيل الدخول للرد على عملائك</p>
+            </div>
+            
+            <form id="login-form">
+                <div class="mb-5">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-color focus:border-primary-color" placeholder="البريد الإلكتروني للوكيل">
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">كلمة المرور</label>
+                    <input type="password" id="password" name="password" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-color focus:border-primary-color" placeholder="كلمة المرور">
+                </div>
+                
+                <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-bold text-lg transition duration-300 btn-hover shadow-md">
+                    تسجيل الدخول
+                </button>
+                <p id="login-status" class="text-center mt-4 text-red-500 hidden">بيانات الدخول غير صحيحة.</p>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="dashboard-main" class="hidden min-h-screen flex">
+        
+        <aside class="w-80 bg-white border-l shadow-lg flex flex-col">
+            
+            <div class="p-4 border-b">
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold text-lg ml-3">أ.أ</div>
+                    <div>
+                        <p class="font-bold">أحمد الدعم</p>
+                        <p class="text-sm text-green-600 flex items-center">
+                            <span class="h-2 w-2 rounded-full bg-green-500 ml-1"></span> متصل
+                        </p>
+                    </div>
+                </div>
+                <button onclick="logout()" class="w-full mt-3 text-sm py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 transition">تسجيل الخروج</button>
+            </div>
+
+            <div class="p-4 border-b">
+                <input type="text" placeholder="البحث عن محادثة..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-primary-color">
+            </div>
+
+            <div id="threads-list" class="flex-grow overflow-y-auto">
+                
+                <div class="p-4 border-b hover:bg-gray-50 cursor-pointer bg-blue-50 border-r-4 border-primary">
+                    <div class="flex justify-between items-center">
+                        <p class="font-bold text-gray-900">موقع العميل: A5F2E</p>
+                        <span class="text-xs text-primary-color font-bold">جديد</span>
+                    </div>
+                    <p class="text-sm text-gray-500 truncate mt-1">العميل: أريد أن أستفسر عن سعر التوكن الجديد...</p>
+                </div>
+                
+                <div class="p-4 border-b hover:bg-gray-50 cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <p class="font-bold text-gray-900">موقع العميل: 8B3C1</p>
+                        <span class="text-xs text-gray-400">منذ 10 دقائق</span>
+                    </div>
+                    <p class="text-sm text-gray-500 truncate mt-1">أنا بحاجة إلى مساعدة في دمج الكود...</p>
+                </div>
+                
+                <div class="p-4 border-b hover:bg-gray-50 cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <p class="font-bold text-gray-900">موقع العميل: 9D4A6</p>
+                        <span class="text-xs text-gray-400">منذ ساعتين</span>
+                    </div>
+                    <p class="text-sm text-gray-500 truncate mt-1">هل يمكنني تغيير لون زر الشات؟</p>
+                </div>
+
+            </div>
+        </aside>
+
+        <main class="flex-grow flex flex-col bg-white">
+            
+            <header class="p-4 border-b flex justify-between items-center shadow-sm">
+                <div>
+                    <h2 class="text-xl font-bold">محادثة مع الموقع A5F2E</h2>
+                    <p class="text-sm text-gray-500">منذ 5 دقائق - التوكن: **A5F2E**</p>
+                </div>
+                <button class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm hover:bg-red-200 transition">إنهاء المحادثة</button>
+            </header>
+
+            <div id="chat-messages-container" class="flex-grow p-6 overflow-y-auto chat-messages-area bg-gray-50">
+                
+                <div class="flex justify-end mb-4">
+                    <div class="bg-primary text-white max-w-xs p-3 rounded-xl rounded-bl-none shadow-md">
+                        <p class="text-sm">السلام عليكم، أريد أن أستفسر عن سعر التوكن الجديد وهل هو دائم؟</p>
+                        <span class="text-xs text-gray-200 block mt-1">11:50 مساءً</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-start mb-4">
+                    <div class="bg-gray-200 text-gray-800 max-w-xs p-3 rounded-xl rounded-br-none shadow-md">
+                        <p class="text-sm">وعليكم السلام ورحمة الله، أهلاً بك! نعم، لدينا باقة شهرية وباقة دائمة. هل يمكنني التحقق من تفاصيل موقعك؟</p>
+                        <span class="text-xs text-gray-500 block mt-1">11:52 مساءً</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end mb-4">
+                    <div class="bg-primary text-white max-w-xs p-3 rounded-xl rounded-bl-none shadow-md">
+                        <p class="text-sm">الموقع هو https://example.com/A5F2E</p>
+                        <span class="text-xs text-gray-200 block mt-1">11:53 مساءً</span>
+                    </div>
+                </div>
+
+                </div>
+
+            <footer class="p-4 border-t bg-white">
+                <div class="flex items-center">
+                    <button class="p-2 text-gray-500 hover:text-primary-color transition ml-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13.5"/></svg>
+                    </button>
+                    <input type="text" placeholder="اكتب رسالة الرد هنا..." class="flex-grow px-4 py-2 border border-gray-300 rounded-full focus:ring-primary-color focus:border-primary-color">
+                    <button class="bg-primary text-white p-3 rounded-full ml-1 btn-hover transition duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    </button>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const status = document.getElementById('login-status');
+
+            // محاكاة التحقق من الدخول: سيتم استبدال هذا بربط مع الخادم لاحقاً
+            if (email === 'agent@customchat.com' && password === '123456') {
+                // دخول ناجح
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard-main').classList.remove('hidden');
+                status.classList.add('hidden');
+                // حفظ حالة الدخول (لأغراض المحاكاة)
+                localStorage.setItem('loggedIn', 'true');
+            } else {
+                // فشل الدخول
+                status.textContent = 'البريد أو كلمة المرور غير صحيحة. استخدم agent@customchat.com و 123456 للتجربة.';
+                status.classList.remove('hidden');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('loggedIn');
+            document.getElementById('dashboard-main').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('login-status').classList.add('hidden');
+        }
+
+        // التحقق عند تحميل الصفحة
+        window.onload = function() {
+            if (localStorage.getItem('loggedIn') === 'true') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard-main').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+                      </html>
