@@ -7,22 +7,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
+        /* الخط المستخدم هو 'Cairo' لتناسب اللغة العربية */
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #f8faff;
+            background-color: #f8faff; /* خلفية فاتحة ومريحة */
             direction: rtl;
         }
+        /* الألوان الرئيسية */
         .primary-color { color: #007bff; }
         .bg-primary { background-color: #007bff; }
-        .bg-secondary { background-color: #4CAF50; }
+        .bg-secondary { background-color: #4CAF50; } /* أخضر للدلالة على النجاح */
         .btn-hover:hover { background-color: #0056b3; }
+        /* أنماط الكود المخصص */
         .code-block {
             background-color: #f1f5f9;
             border-right: 5px solid #007bff;
             font-family: monospace;
-            direction: ltr; 
+            direction: ltr; /* الكود يظهر من اليسار لليمين */
             text-align: left;
-            user-select: all; 
+            user-select: all; /* للسماح بنسخ الكل بسهولة */
             font-size: 15px;
             overflow-x: auto;
         }
@@ -35,8 +38,8 @@
             <h1 class="text-3xl font-extrabold tracking-wider">
                 <span class="text-yellow-300">نظام</span> الدعم المباشر الخاص بك
             </h1>
-            <a href="#" class="bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg font-bold hover:bg-yellow-300 transition duration-300 shadow-md">
-                لوحة التحكم (قريباً)
+            <a href="./dashboard.html" class="bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg font-bold hover:bg-yellow-300 transition duration-300 shadow-md">
+                لوحة التحكم (وكلاء)
             </a>
         </div>
     </header>
@@ -48,31 +51,31 @@
                 أضف <span class="primary-color">الشات المباشر</span> إلى أي موقع بثوانٍ
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-                نظام دعم فني مخصص بالكامل، يُمكن عملاءك من دمج شات احترافي في مواقعهم عبر سطر كود واحد مع توكن فريد.
+                نظام دعم فني مخصص بالكامل، يُمكن عملائك من دمج شات احترافي في مواقعهم عبر سطر كود واحد مع توكن فريد.
             </p>
-            <button class="bg-secondary text-white px-8 py-3 rounded-full text-lg font-bold shadow-xl hover:bg-green-600 transition duration-300">
-                ابدأ تجربتك المجانية الآن
-            </button>
+            <a href="#code-section" class="bg-secondary text-white px-8 py-3 rounded-full text-lg font-bold shadow-xl hover:bg-green-600 transition duration-300">
+                شاهد كود التضمين
+            </a>
         </section>
 
-        <section class="mb-20 bg-white p-8 rounded-xl shadow-2xl border-t-4 border-primary">
+        <section id="code-section" class="mb-20 bg-white p-8 rounded-xl shadow-2xl border-t-4 border-primary">
             <h3 class="text-3xl font-bold mb-6 primary-color">
-                🚀 سطر الكود الخاص بك
+                🚀 سطر الكود الخاص بعميلك
             </h3>
             <p class="text-gray-700 mb-4">
-                انسخ هذا الكود وألصقه قبل وسم الإغلاق <code>&lt;/body&gt;</code> في أي موقع لتبدأ باستقبال رسائل العملاء فوراً.
+                انسخ هذا الكود وألصقه قبل وسم الإغلاق <code>&lt;/body&gt;</code> في أي موقع.
             </p>
 
             <div class="code-block p-4 rounded-lg">
                 &lt;!-- كود الشات المخصص لنظامك --&gt;<br>
                 &lt;script src="https://[اسم_حسابك].github.io/Custom-Live-Chat-System/widget.js" <br>
-                data-chat-token="[التوكن_الفريد_للموقع]" <br>
+                data-chat-token="[ضع_التوكن_الفريد_للعميل_هنا]" <br>
                 async&gt;&lt;/script&gt;
             </div>
 
              <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800 rounded-md">
-                 <p class="font-bold">ملاحظة هامة للاختبار:</p>
-                 <p>هذا الكود هو سطر المنتج النهائي. للاختبار الآن، شاهد الزر العائم في الزاوية السفلى اليسرى (أو اليمنى).</p>
+                 <p class="font-bold">ملاحظة هامة:</p>
+                 <p>تأكد من تغيير **[اسم_حسابك]** إلى اسم حسابك الفعلي على GitHub ليعمل الرابط، ثم قم بزيارة هذه الصفحة لمشاهدة زر الشات يعمل.</p>
              </div>
         </section>
         
@@ -81,7 +84,7 @@
                 شاهد الشات يعمل الآن!
             </h3>
             <p class="text-gray-600 mb-8">
-                اضغط على الزر العائم في الزاوية للاطلاع على التصميم الجديد.
+                اضغط على الزر العائم في الزاوية للاطلاع على التصميم النهائي.
             </p>
             <button onclick="window.scrollTo(0, document.body.scrollHeight)" class="bg-yellow-400 text-gray-900 px-8 py-3 rounded-full text-lg font-bold hover:bg-yellow-300 transition duration-300 shadow-md">
                 النزول لرؤية الزر العائم
