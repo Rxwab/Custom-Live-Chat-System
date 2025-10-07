@@ -62,18 +62,14 @@
         const iconOpen = document.getElementById('chat-icon-open');
         const iconClose = document.getElementById('chat-icon-close');
 
-        // نستخدم نفس الزر لفتح وإغلاق النافذة
         function toggleChat() {
             chatWindow.classList.toggle('hidden');
             if (chatWindow.classList.contains('hidden')) {
-                // إغلاق: إظهار أيقونة الشات، إخفاء أيقونة الإغلاق
                 iconOpen.classList.remove('hidden');
                 iconClose.classList.add('hidden');
             } else {
-                // فتح: إخفاء أيقونة الشات، إظهار أيقونة الإغلاق
                 iconOpen.classList.add('hidden');
                 iconClose.classList.remove('hidden');
-                // التركيز على حقل الإدخال عند الفتح
                 document.getElementById('chat-input').focus();
             }
         }
@@ -81,7 +77,7 @@
         chatButton.addEventListener('click', toggleChat);
 
 
-        // 5. وظيفة الإرسال (مكان ربط الـ WebSocket لاحقًا)
+        // 5. وظيفة الإرسال 
         const sendButton = document.getElementById('send-button');
         const chatInput = document.getElementById('chat-input');
         const chatMessages = document.getElementById('chat-messages');
@@ -95,26 +91,23 @@
                 msgElement.textContent = messageText;
                 chatMessages.appendChild(msgElement);
                 
-                // التمرير لأسفل
                 chatMessages.scrollTop = chatMessages.scrollHeight;
                 
                 // **هنا سيتم إضافة كود WebSocket لإرسال الرسالة إلى الخادم باستخدام الـ (Token)**
                 // sendToBackend(token, messageText); 
 
-                chatInput.value = ''; // مسح خانة الإدخال
+                chatInput.value = ''; 
             }
         });
         
-        // إرسال بالضغط على Enter
         chatInput.addEventListener('keypress', (e) => {
              if (e.key === 'Enter') {
-                 e.preventDefault(); // منع إضافة سطر جديد عند الإرسال
+                 e.preventDefault(); 
                  sendButton.click();
              }
          });
     }
 
-    // تشغيل النظام عند تحميل السكريبت
     loadStyles();
     buildChatWidget();
 })();
